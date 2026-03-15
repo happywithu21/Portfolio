@@ -41,16 +41,19 @@ export default function AboutSection() {
                 >
                     <span className="section-label">MISSION_STATEMENT</span>
                     <h2 style={{ fontSize: '2.5rem', fontWeight: 900, marginBottom: '2rem', lineHeight: 1.1 }}>
-                        Bridging the gap between <br/>
-                        <span style={{ color: 'var(--brand-orange)' }}>Raw Data</span> & <span style={{ color: '#c084fc' }}>Meaningful Insights.</span>
+                        Combining <span style={{ color: 'var(--brand-orange)' }}>Innovation</span> with <br/>
+                        <span style={{ color: '#c084fc' }}>Practical Impact.</span>
                     </h2>
                     
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
                         <p className="mono" style={{ fontSize: '13px', lineHeight: 1.8, opacity: 0.7, borderLeft: '2px solid var(--brand-orange)', paddingLeft: '1.5rem' }}>
-                            [01] Navigating the intersection of data science and software engineering to build systems that don't just process data, but understand it.
+                            I believe technology is most powerful when it solves real problems. As a Computer Science student, I’m passionate about exploring AI, data science, cloud computing, and modern web technologies to build intelligent and useful applications.
                         </p>
                         <p className="mono" style={{ fontSize: '13px', lineHeight: 1.8, opacity: 0.7, borderLeft: '2px solid #c084fc', paddingLeft: '1.5rem' }}>
-                            [02] My focus lies in developing scalable machine learning models while maintaining a robust full-stack architecture for real-world impact.
+                            I enjoy experimenting with ideas, analyzing data, and creating systems that make information more accessible and decisions smarter.
+                        </p>
+                        <p className="mono" style={{ fontSize: '13px', lineHeight: 1.8, opacity: 0.7, borderLeft: '2px solid #3b82f6', paddingLeft: '1.5rem' }}>
+                            When I'm not coding, I'm usually learning new technologies, improving my problem-solving skills, or working on projects that combine innovation with practical impact.
                         </p>
                     </div>
                 </motion.div>
