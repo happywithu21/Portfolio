@@ -26,7 +26,7 @@ export default function Hero() {
                 gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
                 gap: '4vw',
                 alignItems: 'center',
-                paddingTop: '8vh', /* Reduced from 15vh */
+                paddingTop: '4vh', 
                 paddingBottom: '5vh'
             }}>
 

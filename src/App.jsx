@@ -12,11 +12,38 @@ import './index.css';
 function App() {
   const [loading, setLoading] = useState(true);
 
+  const [activeSection, setActiveSection] = useState('about');
+
   useEffect(() => {
     const lenis = new Lenis({ lerp: 0.1, duration: 1.2, smoothWheel: true });
     const raf = (time) => { lenis.raf(time); requestAnimationFrame(raf); };
     requestAnimationFrame(raf);
-    return () => lenis.destroy();
+
+    // Section Tracking Logic
+    const observerOptions = {
+      root: null,
+      rootMargin: '-40% 0px -40% 0px', // Trigger when section is in the middle of screen
+      threshold: 0
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setActiveSection(entry.target.id);
+        }
+      });
+    }, observerOptions);
+
+    const sections = ['about', 'skills', 'certificates', 'projects', 'contact'];
+    sections.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+
+    return () => {
+      lenis.destroy();
+      observer.disconnect();
+    };
   }, []);
 
   return (
@@ -32,34 +59,24 @@ function App() {
         position: 'relative'
       }}>
 
-        {/* Professional Header Navigation */}
-        <header className="header-nav" style={{
-          height: '100px',
-          borderBottom: '1px solid rgba(238,237,228,0.05)',
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          padding: '0 6vw'
-        }}>
+        {/* Professional Floating Navigation */}
+        <header className="header-nav">
           <div style={{ display: 'flex', alignItems: 'center', gap: '2rem' }}>
             <div style={{ fontSize: '14px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em' }}>
               HARSHITA GOUR
             </div>
-            <div className="mono desktop-only" style={{ fontSize: '10px', opacity: 0.3, padding: '4px 10px', border: '1px solid rgba(238,237,228,0.1)', borderRadius: '20px' }}>
-              PORTFOLIO v1.0
-            </div>
           </div>
 
           <nav style={{ display: 'flex', gap: '30px' }} className="desktop-only">
-            <a href="#about" className="nav-link interactive">ABOUT</a>
-            <a href="#skills" className="nav-link interactive">SKILLS</a>
-            <a href="#certificates" className="nav-link interactive">CERTIFICATES</a>
-            <a href="#projects" className="nav-link interactive">PROJECTS</a>
-            <a href="#contact" className="nav-link interactive">CONTACT</a>
+            <a href="#about" className={`nav-link interactive ${activeSection === 'about' ? 'active' : ''}`}>ABOUT</a>
+            <a href="#skills" className={`nav-link interactive ${activeSection === 'skills' ? 'active' : ''}`}>SKILLS</a>
+            <a href="#certificates" className={`nav-link interactive ${activeSection === 'certificates' ? 'active' : ''}`}>CERTIFICATES</a>
+            <a href="#projects" className={`nav-link interactive ${activeSection === 'projects' ? 'active' : ''}`}>PROJECTS</a>
+            <a href="#contact" className={`nav-link interactive ${activeSection === 'contact' ? 'active' : ''}`}>CONTACT</a>
           </nav>
         </header>
 
-        <main style={{ paddingBottom: '10vh' }}>
+        <main style={{ paddingTop: '90px', paddingBottom: '10vh' }}>
           <div id="about"><Hero /></div>
           <AboutSection />
 
