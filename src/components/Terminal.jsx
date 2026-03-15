@@ -2,10 +2,10 @@ import { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 
 const commands = [
-    { query: 'cat harshita_identity.json', output: '{ "name": "Harshita Gour", "role": "Data Scientist", "focus": "Predictive Modeling / AI Architecture" }' },
-    { query: 'run academic_check.sh', output: 'Fetching records... [LPU / BTech CSE] status: Optimal. CGPA: High Precision.' },
-    { query: 'analyze --skills', output: 'Processing... Technical Stack identified: Python, ML, Neural Networks, Power BI, SQL, C++, Java.' },
-    { query: 'status --system', output: 'System_v1.0.4 operating at peak efficiency. All nodes synchronized.' }
+    { query: 'Who is Harshita?', output: 'I am a passionate developer and Data Science student at LPU, dedicated to building clean code and meaningful data solutions.' },
+    { query: 'Tell me about her education.', output: 'Currently pursuing a B.Tech in CSE at Lovely Professional University, maintaining a strong focus on core engineering and modern tech.' },
+    { query: 'What are her core skills?', output: 'I specialize in Python, JavaScript, and React, with a strong foundation in SQL, C++, and Data Visualization tools.' },
+    { query: 'Is she open for work?', output: 'Yes! I am currently looking for internship and junior roles in Full Stack Development or Data Science.' }
 ];
 
 export default function Terminal() {
@@ -47,7 +47,7 @@ export default function Terminal() {
 
     return (
         <section className="container" style={{ padding: 'clamp(5vh, 10vh, 15vh) 0' }}>
-            <span className="section-label">SYSTEM_TERMINAL / QUERY_BY_RESEARCHER</span>
+            <span className="section-label">A QUICK Q&A</span>
 
             <div
                 className="data-card"
@@ -67,7 +67,7 @@ export default function Terminal() {
                     <div style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#ff5f56' }} />
                     <div style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#ffbd2e' }} />
                     <div style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#27c93f' }} />
-                    <span className="mono" style={{ fontSize: '10px', opacity: 0.3, marginLeft: 'auto' }}>harshita@ds-node-01: ~</span>
+                    <span className="mono" style={{ fontSize: '10px', opacity: 0.3, marginLeft: 'auto' }}>harshita@portfolio: ~</span>
                 </div>
 
                 <div
@@ -82,7 +82,7 @@ export default function Terminal() {
                     {history.map((item, i) => (
                         <div key={i} style={{ marginBottom: '1.5rem' }}>
                             <div style={{ display: 'flex', gap: '10px' }}>
-                                <span style={{ color: 'var(--brand-orange)', fontWeight: 900 }}>$</span>
+                                <span style={{ color: 'var(--brand-orange)', fontWeight: 900 }}>●</span>
                                 <span className="mono" style={{ fontSize: '13px' }}>{item.query}</span>
                             </div>
                             <motion.div
@@ -99,7 +99,7 @@ export default function Terminal() {
 
                     {currentIndex < commands.length && (
                         <div style={{ display: 'flex', gap: '10px' }}>
-                            <span style={{ color: 'var(--brand-orange)', fontWeight: 900 }}>$</span>
+                            <span style={{ color: 'var(--brand-orange)', fontWeight: 900 }}>●</span>
                             <span className="mono" style={{ fontSize: '13px' }}>
                                 {displayedQuery}
                                 <motion.span
@@ -121,7 +121,7 @@ export default function Terminal() {
             </div>
 
             <div style={{ marginTop: '2rem', display: 'flex', justifyContent: 'flex-end', opacity: 0.2 }}>
-                <span className="mono" style={{ fontSize: '10px' }}>LOG_STATE: BROADCASTING_LIVE</span>
+                <span className="mono" style={{ fontSize: '10px' }}>STATUS: ONLINE</span>
             </div>
         </section>
     );

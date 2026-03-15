@@ -1,232 +1,211 @@
-import { useRef, useState, useEffect } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { ArrowUpRight, Shield, Activity, BarChart2, Laptop } from 'lucide-react';
-
+import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ArrowUpRight } from 'lucide-react';
 import animeViz from '../assets/anime_viz.png';
 
 const projects = [
     {
         id: '01',
         title: 'ANIME RECOMMENDER',
-        category: 'RECSYS_&_VIZ',
-        icon: <BarChart2 size={40} />,
+        subtitle: 'DATA INTELLIGENCE',
         image: animeViz,
-        description: 'Advanced hybrid recommendation engine utilizing content-based and collaborative filtering with deep Power BI analytical synthesis.',
-        insight: 'Achieved high-precision personalization using TruncatedSVD dimensionality reduction.',
-        tech: ['Python', 'Power BI', 'Scikit-learn', 'SciPy']
+        tech: ['Python', 'Power BI'],
+        glow: 'rgba(255, 85, 0, 0.4)'
     },
     {
         id: '02',
         title: 'CPU SCHEDULER',
-        category: 'ALGORITHMIC',
-        icon: <Activity size={40} />,
-        description: 'Energy-efficient CPU scheduling designed for massive data-center workload distribution.',
-        insight: '12% Energy efficiency gain.',
-        tech: ['C++', 'Multithreading', 'Kernel']
+        subtitle: 'SYSTEMS OPTIMIZATION',
+        image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=1000',
+        tech: ['C++', 'Multithreading'],
+        glow: 'rgba(0, 242, 255, 0.3)'
     },
     {
         id: '03',
         title: 'NEXUS SHOOTER',
-        category: 'ENGINE_VIZ',
-        icon: <BarChart2 size={40} />,
-        description: 'High-performance physics engine designed for high-velocity data interaction visualization.',
-        insight: '10k+ concurrent active particles.',
-        tech: ['JS', 'Canvas', 'Physics']
+        subtitle: 'INTERACTIVE SIMULATION',
+        image: 'https://images.unsplash.com/photo-1614728263952-84ea206f9c45?auto=format&fit=crop&q=80&w=1000',
+        tech: ['JS', 'Canvas'],
+        glow: 'rgba(192, 132, 252, 0.3)'
     },
     {
         id: '04',
         title: 'BLENDER MOTION',
-        category: '3D_MODELING',
-        icon: <Laptop size={40} />,
-        description: 'Cinematic 3D character modeling and high-fidelity rendering systems.',
-        insight: 'Real-time ray-traced data viz.',
-        tech: ['Blender', 'Python', 'Render']
+        subtitle: '3D VISUALIZATION',
+        image: 'https://images.unsplash.com/photo-1633167606207-d840b5070fc2?auto=format&fit=crop&q=80&w=1000',
+        tech: ['Blender', 'Python'],
+        glow: 'rgba(255, 255, 255, 0.2)'
     }
 ];
 
 export default function Projects() {
-    const targetRef = useRef(null);
-    const [isMobile, setIsMobile] = useState(false);
-    const { scrollYProgress } = useScroll({ target: isMobile ? null : targetRef });
+    const [index, setIndex] = useState(0);
+    const [isMovingForward, setIsMovingForward] = useState(true);
 
     useEffect(() => {
-        const checkMobile = () => setIsMobile(window.innerWidth <= 768);
-        checkMobile();
-        window.addEventListener('resize', checkMobile);
-        return () => window.removeEventListener('resize', checkMobile);
-    }, []);
+        const interval = setInterval(() => {
+            setIndex((prev) => {
+                if (isMovingForward) {
+                    if (prev === projects.length - 1) {
+                        setIsMovingForward(false);
+                        return prev - 1;
+                    }
+                    return prev + 1;
+                } else {
+                    if (prev === 0) {
+                        setIsMovingForward(true);
+                        return prev + 1;
+                    }
+                    return prev - 1;
+                }
+            });
+        }, 5000); // 4-5 second pause + 1 second transition total roughly
 
-    // Transform vertical scroll to horizontal movement for desktop
-    const x = useTransform(scrollYProgress, [0, 1], ["0%", "-75%"]);
-
-    if (isMobile) {
-        return (
-            <div className="container" style={{ padding: '5vh 0' }}>
-                <span className="section-label">SELECTED_R&D_SHOWCASE</span>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
-                    {projects.map((project, idx) => (
-                        <div
-                            key={project.id}
-                            className="data-card"
-                            style={{
-                                display: 'flex',
-                                flexDirection: 'column',
-                                gap: '1.5rem',
-                                border: '1px solid rgba(238, 237, 228, 0.05)'
-                            }}
-                        >
-                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                                <span className="mono" style={{ fontSize: '10px', opacity: 0.3 }}>INDEX_00{idx + 1}</span>
-                                <span className="mono" style={{ fontSize: '10px', color: 'var(--brand-orange)' }}>{project.category}</span>
-                            </div>
-
-                            {project.image && (
-                                <img src={project.image} alt={project.title} style={{ width: '100%', height: '180px', objectFit: 'cover', borderRadius: '4px', border: '1px solid rgba(255, 85, 0, 0.1)' }} />
-                            )}
-
-                            <h3 style={{ fontSize: '1.8rem', fontWeight: 900, textTransform: 'uppercase' }}>{project.title}</h3>
-
-                            <p style={{ fontSize: '1rem', opacity: 0.6, lineHeight: 1.4 }}>{project.description}</p>
-
-                            <div style={{ borderTop: '1px solid rgba(238, 237, 228, 0.05)', paddingTop: '1rem' }}>
-                                <span className="section-label" style={{ fontSize: '8px', marginBottom: '0.5rem' }}>CRITICAL_INSIGHT</span>
-                                <p className="mono" style={{ fontSize: '11px', color: 'var(--brand-orange)' }}>» {project.insight}</p>
-                            </div>
-
-                            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '5px' }}>
-                                {project.tech.map(t => (
-                                    <span key={t} className="mono" style={{ fontSize: '9px', background: 'rgba(255, 85, 0, 0.1)', color: 'var(--brand-orange)', padding: '2px 8px' }}>{t}</span>
-                                ))}
-                            </div>
-                        </div>
-                    ))}
-                </div>
-            </div>
-        );
-    }
+        return () => clearInterval(interval);
+    }, [isMovingForward]);
 
     return (
-        <div style={{ height: '300vh' }} ref={targetRef} className="dot-grid desktop-only">
-            <div style={{ position: 'sticky', top: 0, height: '100vh', overflow: 'hidden', display: 'flex', alignItems: 'center' }}>
-
-                {/* Section Title - Stays static on the left */}
-                <div style={{ position: 'absolute', top: '10vh', left: '6vw', zIndex: 100 }}>
-                    <span className="section-label">SELECTED_R&D_SHOWCASE</span>
-                    <h2 style={{ fontSize: '12.8px', opacity: 0.5, marginTop: '1rem' }}>[ SCROLL_TO_NAVIGATE ]</h2>
-                </div>
-
-                {/* Horizontal Moving Content */}
-                <motion.div style={{ x, display: 'flex', gap: '4vw', padding: '0 6vw' }}>
-                    {projects.map((project, idx) => (
-                        <motion.div
-                            key={project.id}
-                            className="data-card"
-                            style={{
-                                width: '70vw',
-                                height: '60vh',
-                                flexShrink: 0,
-                                display: 'grid',
-                                gridTemplateColumns: 'minmax(250px, 1fr) 2fr',
-                                gap: '4vw',
-                                padding: '4rem',
-                                position: 'relative',
-                                background: 'rgba(238, 237, 228, 0.02)',
-                                border: '1px solid rgba(238, 237, 228, 0.05)'
-                            }}
-                        >
-                            {/* Vertical Side ID */}
-                            <div
-                                className="mono"
-                                style={{
-                                    position: 'absolute', right: '2rem', top: '4rem',
-                                    writingMode: 'vertical-rl', fontSize: '10px', opacity: 0.2,
-                                    letterSpacing: '0.5em'
-                                }}
-                            >
-                                RECORD_INDEX_00{idx + 1}
-                            </div>
-
-                            {/* Icon & Category Box / Project Image */}
-                            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', position: 'relative', overflow: 'hidden' }}>
-                                {project.image ? (
-                                    <div style={{
-                                        width: '100%',
-                                        height: '200px',
-                                        backgroundImage: `url(${project.image})`,
-                                        backgroundSize: 'cover',
-                                        backgroundPosition: 'center',
-                                        border: '1px solid rgba(255, 85, 0, 0.2)',
-                                        borderRadius: '4px',
-                                        marginBottom: '2rem',
-                                        filter: 'grayscale(0.5) contrast(1.2)',
-                                        boxShadow: '0 0 20px rgba(255, 85, 0, 0.1)'
-                                    }} />
-                                ) : (
-                                    <div style={{ color: 'var(--brand-orange)', opacity: 0.6 }}><div style={{ marginBottom: '2rem' }}>{project.icon}</div></div>
-                                )}
-                                <div>
-                                    <span className="section-label" style={{ fontSize: '9px', marginBottom: '0.5rem' }}>TECH_STACK</span>
-                                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '5px' }}>
-                                        {project.tech.map(t => (
-                                            <span key={t} className="mono" style={{ fontSize: '10px', background: 'rgba(255, 85, 0, 0.1)', color: 'var(--brand-orange)', padding: '2px 8px' }}>{t}</span>
-                                        ))}
-                                    </div>
-                                </div>
-                            </div>
-
-                            {/* Main Content */}
-                            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-                                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: '1rem' }}>
-                                    <h3 style={{ fontSize: 'clamp(2rem, 5vw, 6rem)', fontWeight: 700, letterSpacing: '-0.02em', textTransform: 'uppercase' }}>
-                                        {project.title}
-                                    </h3>
-                                </div>
-
-                                <p style={{ fontSize: '1.2rem', lineHeight: 1.5, opacity: 0.7, marginBottom: '3rem', maxWidth: '600px' }}>
-                                    {project.description}
-                                </p>
-
-                                <div style={{ display: 'flex', alignItems: 'center', gap: '3rem' }}>
-                                    <div>
-                                        <span className="section-label" style={{ fontSize: '9px', marginBottom: '0.5rem' }}>CRITICAL_INSIGHT</span>
-                                        <p className="mono" style={{ fontSize: '12px', color: 'var(--brand-orange)' }}>» {project.insight}</p>
-                                    </div>
-
-                                    <div
-                                        className="interactive"
-                                        style={{
-                                            width: '60px', height: '60px', borderRadius: '50%',
-                                            border: '1px solid rgba(238,237,228,0.2)', display: 'flex',
-                                            alignItems: 'center', justifyContent: 'center',
-                                            marginLeft: 'auto'
-                                        }}
-                                    >
-                                        <ArrowUpRight size={24} />
-                                    </div>
-                                </div>
-                            </div>
-
-                            {/* Background Large Index Number */}
-                            <div style={{
-                                position: 'absolute', bottom: '-5%', right: '10%',
-                                fontSize: '15rem', fontWeight: 900, opacity: 0.02,
-                                zIndex: -1, pointerEvents: 'none'
-                            }}>
-                                {project.id}
-                            </div>
-                        </motion.div>
-                    ))}
-                </motion.div>
-
-                {/* Progress Bar at the bottom */}
-                <div style={{ position: 'absolute', bottom: '8vh', left: '6vw', width: '88vw', height: '1px', background: 'rgba(238, 237, 228, 0.1)' }}>
-                    <motion.div
-                        style={{ scaleX: scrollYProgress, transformOrigin: 'left', width: '100%', height: '100%', background: 'var(--brand-orange)' }}
-                    />
-                </div>
-
+        <section id="work" style={{ 
+            padding: '12vh 0', 
+            background: '#0a0a0a', 
+            overflow: 'hidden',
+            position: 'relative',
+            minHeight: '100vh',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center'
+        }}>
+            {/* Background Text */}
+            <div style={{ position: 'absolute', top: '5vh', left: '6vw', opacity: 0.05, zIndex: 0 }}>
+                <h2 style={{ fontSize: '20vw', fontWeight: 900, margin: 0, color: '#fff' }}>WORK</h2>
             </div>
-        </div>
+
+            <div style={{ position: 'relative', zIndex: 1 }}>
+                <div style={{ padding: '0 6vw', marginBottom: '6vh', textAlign: 'center' }}>
+                    <span className="section-label" style={{ color: 'var(--brand-orange)', letterSpacing: '0.3em', fontSize: '10px' }}>PROUDLY PRESENTING</span>
+                    <h2 style={{ 
+                        fontSize: '1.5rem', 
+                        fontWeight: 900, 
+                        marginTop: '0.4rem',
+                        color: '#fff',
+                        textTransform: 'uppercase',
+                        letterSpacing: '0.15em'
+                    }}>
+                        FEATURED PROJECTS
+                    </h2>
+                </div>
+
+                <div style={{ 
+                    position: 'relative',
+                    width: '100%',
+                    height: '650px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    marginBottom: '2vh'
+                }}>
+                    <motion.div 
+                        initial={false}
+                        animate={{ 
+                            x: `calc(50vw - 210px - ${index * 500}px)`
+                        }}
+                        transition={{ type: "spring", stiffness: 100, damping: 20 }}
+                        style={{ 
+                            display: 'flex', 
+                            gap: '80px',
+                            position: 'absolute',
+                            left: 0,
+                            padding: '80px 0' 
+                        }}
+                    >
+                        {projects.map((project, idx) => (
+                            <ProjectCard 
+                                key={idx} 
+                                project={project} 
+                                isActive={idx === index} 
+                            />
+                        ))}
+                    </motion.div>
+                </div>
+
+                {/* Pagination / Index Indicator */}
+                <div style={{ display: 'flex', justifyContent: 'center', gap: '15px', marginTop: '2rem' }}>
+                    {projects.map((_, i) => (
+                        <div key={i} style={{ 
+                            width: '8px', height: '8px', borderRadius: '50%',
+                            background: i === index ? 'var(--brand-orange)' : 'rgba(255,255,255,0.1)',
+                            transition: 'all 0.5s ease',
+                            transform: i === index ? 'scale(1.5)' : 'scale(1)',
+                            cursor: 'pointer'
+                        }} />
+                    ))}
+                </div>
+            </div>
+        </section>
     );
 }
 
+function ProjectCard({ project, isActive }) {
+    return (
+        <motion.div
+            animate={{ 
+                scale: isActive ? 1.1 : 0.8,
+                opacity: isActive ? 1 : 0.15,
+                boxShadow: isActive ? `0 0 80px ${project.glow}` : '0 0 0px transparent'
+            }}
+            transition={{ duration: 0.8, ease: "circOut" }}
+            style={{
+                width: '420px',
+                flexShrink: 0,
+                background: 'rgba(238, 237, 228, 0.02)',
+                border: isActive ? '2px solid var(--brand-orange)' : '1px solid rgba(255,255,255,0.05)',
+                borderRadius: '24px',
+                padding: '2rem',
+                position: 'relative',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '1.2rem',
+                backdropFilter: isActive ? 'blur(0px)' : 'blur(10px)',
+            }}
+        >
+            <div style={{ 
+                width: '100%', 
+                height: '230px', 
+                borderRadius: '16px', 
+                overflow: 'hidden',
+                background: '#000'
+            }}>
+                <motion.img 
+                    src={project.image} 
+                    alt={project.title} 
+                    animate={{ filter: isActive ? 'grayscale(0)' : 'grayscale(1)' }}
+                    style={{ 
+                        width: '100%', 
+                        height: '100%', 
+                        objectFit: 'cover'
+                    }} 
+                />
+            </div>
+            
+            <div style={{ marginTop: '1rem' }}>
+                <span className="mono" style={{ fontSize: '11px', color: 'var(--brand-orange)' }}>
+                    {project.subtitle}
+                </span>
+                
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '0.5rem' }}>
+                    <h3 style={{ fontSize: '2rem', fontWeight: 900, textTransform: 'uppercase', margin: 0 }}>
+                        {project.title}
+                    </h3>
+                    <ArrowUpRight size={24} style={{ opacity: isActive ? 1 : 0 }} />
+                </div>
+
+                <div style={{ display: 'flex', gap: '8px', marginTop: '1.5rem' }}>
+                    {project.tech.map((t, i) => (
+                        <span key={i} className="mono" style={{ fontSize: '10px', padding: '5px 12px', background: 'rgba(255,255,255,0.05)', borderRadius: '6px', border: '1px solid rgba(255,255,255,0.05)' }}>
+                            {t}
+                        </span>
+                    ))}
+                </div>
+            </div>
+        </motion.div>
+    );
+}

@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react';
 import Lenis from '@studio-freight/lenis';
 import Loader from './components/Loader';
-import CustomCursor from './components/CustomCursor';
 import Hero from './components/Hero';
-import Terminal from './components/Terminal';
+import AboutSection from './components/AboutSection';
 import Skills from './components/Skills';
 import Projects from './components/Projects';
 import Certificates from './components/Certificates';
@@ -23,7 +22,6 @@ function App() {
   return (
     <>
       <div className="grain-overlay" />
-      <CustomCursor />
       <Loader onComplete={() => setLoading(false)} />
 
       <div style={{
@@ -45,29 +43,25 @@ function App() {
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '2rem' }}>
             <div style={{ fontSize: '14px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em' }}>
-              HARSHITA GOUR<span style={{ color: 'var(--brand-orange)' }}>™</span>
+              HARSHITA GOUR
             </div>
             <div className="mono desktop-only" style={{ fontSize: '10px', opacity: 0.3, padding: '4px 10px', border: '1px solid rgba(238,237,228,0.1)', borderRadius: '20px' }}>
-              DS_ENGINE_v1.0.4
+              PORTFOLIO v1.0
             </div>
           </div>
 
           <nav style={{ display: 'flex', gap: '30px' }} className="desktop-only">
-            <a href="#terminal" className="nav-link interactive">ID_SYSTEM</a>
-            <a href="#skills" className="nav-link interactive">ARSENAL</a>
-            <a href="#certificates" className="nav-link interactive">CREDENTIALS</a>
-            <a href="#projects" className="nav-link interactive">R&D_WORK</a>
+            <a href="#about" className="nav-link interactive">ABOUT</a>
+            <a href="#skills" className="nav-link interactive">SKILLS</a>
+            <a href="#certificates" className="nav-link interactive">CERTIFICATES</a>
+            <a href="#projects" className="nav-link interactive">PROJECTS</a>
             <a href="#contact" className="nav-link interactive">CONTACT</a>
           </nav>
-
-          <div className="mono desktop-only" style={{ fontSize: '12px', opacity: 0.5 }}>
-            {new Date().toLocaleTimeString()}
-          </div>
         </header>
 
         <main style={{ paddingBottom: '10vh' }}>
           <div id="about"><Hero /></div>
-          <div id="terminal"><Terminal /></div>
+          <AboutSection />
 
           <div style={{ height: '20vh' }} />
           <div id="skills"><Skills /></div>
@@ -89,7 +83,7 @@ function App() {
             gap: '4rem'
           }}>
             <div>
-              <span className="section-label">CONTACT_CLUSTER</span>
+              <span className="section-label">GET IN TOUCH</span>
               <p style={{ fontSize: '1.2rem', marginBottom: '2rem', maxWidth: '400px' }}>
                 Open for collaborations in Predictive Modeling and Data Engineering.
               </p>
@@ -100,12 +94,12 @@ function App() {
             </div>
 
             <div>
-              <span className="section-label">SYSTEM_LOG</span>
+              <span className="section-label">CURRENT STATUS</span>
               <div className="mono" style={{ fontSize: '11px', opacity: 0.4, display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-                <span>[ST] NODE_STATUS: OPTIMAL</span>
-                <span>[ST] MEMORY_USAGE: NOMINAL</span>
-                <span>[ST] ARCH_INTEGRATION: COMPLETE</span>
-                <span>[ST] LOAD_TIME: 847MS</span>
+                <span>[ST] SERVER: ONLINE</span>
+                <span>[ST] FOCUS: OPEN FOR WORK</span>
+                <span>[ST] UPDATED: MARCH 2025</span>
+                <span>[ST] HEALTH: EXCELLENT</span>
               </div>
             </div>
 
