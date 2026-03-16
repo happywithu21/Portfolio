@@ -1,16 +1,56 @@
-# React + Vite
+# ✨ Harshita's Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A high-performance, visually stunning personal portfolio built with **React**, **Vite**, and **Framer Motion**. This project features smooth animations, a dynamic command-line interface, and a modern aesthetic.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Features
 
-## React Compiler
+- **Dynamic Glow Navbar**: Interactive navigation that highlights and glows based on your current scroll position.
+- **Interactive Terminal**: A custom-built developer console for a unique user experience.
+- **Smooth Scrolling**: Powered by Lenis for a premium feel.
+- **Responsive Design**: Fully optimized for all device sizes.
+- **Modern Animations**: Subtle micro-interactions and transitions using Framer Motion.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🛠️ Tech Stack
 
-## Expanding the ESLint configuration
+- **Core**: React 19 + Vite
+- **Animations**: Framer Motion
+- **Icons**: Lucide React
+- **Scrolling**: Lenis
+- **Styling**: Modern CSS with HSL variables
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 🏁 Getting Started
+
+### Prerequisites
+
+- [Node.js](https://nodejs.org/) (v18 or higher)
+- [npm](https://www.npmjs.com/)
+
+### Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/happywithu21/Portfolio.git
+   ```
+
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+3. Start the development server:
+   ```bash
+   npm run dev
+   ```
+
+---
+
+## 📸 Preview
+
+*Coming soon...*
+
+---
+
+Made with ❤️ by [Harshita Gour](https://github.com/happywithu21)
+
